@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wild Waves Aquatic Park</title>
+</head>
+<body>
+  <h1>Wild Waves Aquatic Park</h1>
+  <button type="button" onClick="buyTicket()">Purchase Attraction</button>
+  <script>
+    const WAVE_POOL_MIN_HEIGHT = 42 // in inches
+    const WATERSLIDE_MIN_HEIGHT = 48 // in inches
+    const LAZY_RIVER_MIN_HEIGHT = 36 // in inches
+
+    function buyTicket() {
+      const attractionType = prompt('What attraction do you want to visit: type "wave" for wave pool, "water" for waterslide, or "river" for lazy river?');
+      const userHeight = Number(prompt('What is your height in inches?'));
+      const withAdult = prompt('Are you with an adult? Type "yes" or "no"');
+      console.log("User's selected attraction is " + attractionType);
+      console.log("User's height is " + userHeight);
+      console.log("Is user with an adult? " + withAdult);
+      // shows selected attraction, user height, and if they are with an adult, in the dev console
+
+      const isAllowed = checkHeight(attractionType, userHeight);
+      // saying that the "isAllowed" variable is determined by calling the function "checkHeight"
+
+      if (isAllowed) {
+        alert('Enjoy the ride!');
+        // saying that if "isAllowed" = true then show the alert message above
+      } else {
+        alert('Sorry, you are not tall enough for this attraction.');
+        // basically saying that if "isAllowed" = false then show this alert instead
+      }
+    }
+
+    // now we have to establish how "isAllowed" is determined to be true or false by declaring "checkHeight"
+
+    function checkHeight (attraction, height, withAdult) {
+      // expects three input values
+      const isWithAdult = withAdult === 'yes';
+      // sets up a variable to create an early return if the user is with an adult and above 42 in tall
+      
+      if (height >= 43 && isWithAdult) {
+        return true;
+      }
+
+      /*
+
+      At first I created this code block and then I consulted with AI and determined the 
+      switch statement version is actually cleaner and more scalable. 
+      
+      if (attraction === 'wave') {
+        return height >= WAVE_POOL_MIN_HEIGHT;
+      }
+      // height is using a comparison operator which makes it a boolean (true or false)
+
+      if (attraction === 'water') {
+        return height >= WATERSLIDE_MIN_HEIGHT;
+      
+      if (attraction === 'river')
+        return height >= LAZY_RIVER_MIN_HEIGHT;
+      }
+
+      return false;
+      */
+
+      switch (attraction) {
+        case 'wave':
+          return height >= WAVE_POOL_MIN_HEIGHT;
+
+        case 'water':
+          return height >= WATERSLIDE_MIN_HEIGHT;
+
+        case 'river':
+          return height >= LAZY_RIVER_MIN_HEIGHT;
+
+        default:
+          return false;
+      }
+    }
+
+  </script>
+</body>
+</html>
